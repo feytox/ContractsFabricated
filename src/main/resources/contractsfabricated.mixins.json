@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "contractsfabricated.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ItemStackAccessor",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "PlayerInventoryMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayNetworkHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
