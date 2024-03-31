@@ -10,12 +10,11 @@ import java.util.List;
 @Config(name = "contracts-config", wrapperName = "ContractsConfig")
 public class ContractsConfigModel {
 
-    // TODO: 28.03.2024 change
-    public String moriarty = "Feytox";
+    public String moriarty = "DrAkKoWaS";
     public int dealCount;
     public int points;
     public List<String> bonded = new ObjectArrayList<>();
-    public List<String> tpAllowed = ObjectArrayList.of("K00HOME", "DrAkKoWaS", "Feytox");
+    public List<String> tpAllowed = ObjectArrayList.of("K00HOME", "DrAkKoWaS");
     public Identifier worldId;
     public Vec3d markedPos;
 }
