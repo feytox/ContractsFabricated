@@ -29,7 +29,7 @@ public class MoriartyInvisibleC2S extends AbstractC2SPacket {
                 return;
             }
 
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1, 5, false, false, true));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1, 0, false, false, true));
         });
     }
 

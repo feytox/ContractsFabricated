@@ -1,5 +1,6 @@
 package contractsfabricated.item;
 
+import contractsfabricated.util.BattleModeProdiver;
 import contractsfabricated.util.ContractsUtil;
 import lombok.val;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -13,8 +14,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import static contractsfabricated.entrypoints.ContractsFabricated.CONFIG;
@@ -50,8 +59,14 @@ public class CaneItem extends SwordItem {
         super.inventoryTick(stack, world, entity, slot, selected);
         if (world.isClient || !(entity instanceof LivingEntity livingEntity)) return;
         if (world.getTime() % 5 != 0) return;
-        if (!ContractsUtil.isMoriarty(entity) || !ContractsUtil.hasDeals()) return;
+        if (!ContractsUtil.isMoriarty(entity)) return;
 
+        if (entity instanceof BattleModeProdiver provider) {
+            boolean mode = stack.getItem() instanceof CaneBlade;
+            provider.contractsFabricated$setBattleMode(mode);
+        }
+
+        if (!ContractsUtil.hasDeals()) return;
         livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 16*20, 1, false, false, true));
         livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 16*20, 1, false, false, true));
     }
@@ -74,6 +89,29 @@ public class CaneItem extends SwordItem {
             if (stack.getItem() instanceof CaneItem) return true;
         }
         return false;
+    }
+
+    public static void activateSpecial(ServerPlayerEntity player) {
+        if (!ContractsUtil.isMoriarty(player) || !ContractsUtil.hasDeals()) return;
+        if (!CaneItem.isUsing(player)) return;
+
+        int points = CONFIG.points();
+        if (points < 45) {
+            player.sendMessage(Text.translatable("contractsfabricated.moriarty_special_activate.fail").formatted(Formatting.GRAY), true);
+            return;
+        }
+
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30*20, 4));
+        CONFIG.points(0);
+
+        Vec3d pos = player.getPos();
+        ServerWorld world = player.getServerWorld();
+
+        world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, 300, 0, 1, 0, 1);
+        world.spawnParticles(ParticleTypes.SOUL, pos.x, pos.y, pos.z, 1200, 0, 1, 0, 1);
+        world.spawnParticles(ParticleTypes.SCULK_SOUL, pos.x, pos.y, pos.z, 900, 0, 1, 0, 1);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }
 
     public static class CaneStaff extends CaneItem {

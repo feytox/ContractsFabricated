@@ -2,6 +2,8 @@ package contractsfabricated.config;
 
 import io.wispforest.owo.config.annotation.Config;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -12,7 +14,8 @@ public class ContractsConfigModel {
     public String moriarty = "Feytox";
     public int dealCount;
     public int points;
-    public boolean battle;
-    public boolean giveCane;
     public List<String> bonded = new ObjectArrayList<>();
+    public List<String> tpAllowed = ObjectArrayList.of("K00HOME", "DrAkKoWaS", "Feytox");
+    public Identifier worldId;
+    public Vec3d markedPos;
 }

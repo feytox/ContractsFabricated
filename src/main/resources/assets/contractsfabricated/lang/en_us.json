@@ -2,7 +2,12 @@
   "item.contractsfabricated.cane_blade": "Трость-рапира",
   "item.contractsfabricated.cane_staff": "Трость",
   "contractsfabricated.moriarty_invisible_toggle": "Переключить режим невидимости",
+  "contractsfabricated.moriarty_tp_bond": "Телепортировать жертву к себе",
+  "contractsfabricated.moriarty_tp_to_bond": "Телепортироваться к жертве",
+  "contractsfabricated.moriarty_stan_bond": "Связать жертву",
   "contractsfabricated.moriarty_special_activate": "Активировать особую способность",
   "contractsfabricated.moriarty_special_activate.fail": "Недостаточно очков убийств для активации способности",
-  "contractsfabricated.category": "ContractsFabricated"
+  "contractsfabricated.deal": "Договор",
+  "contractsfabricated.category": "ContractsFabricated",
+  "contractsfabricated.moriarty_command_markPos": "Текущая позиция была отмечена"
 }
