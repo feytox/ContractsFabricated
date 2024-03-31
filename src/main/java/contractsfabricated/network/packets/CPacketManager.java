@@ -1,8 +1,8 @@
-package contractsfabricated.util.network.packets;
+package contractsfabricated.network.packets;
 
 import com.google.common.collect.ImmutableMap;
-import contractsfabricated.util.network.util.AbstractC2SPacket;
-import contractsfabricated.util.network.util.AbstractPacketManager;
+import contractsfabricated.network.util.AbstractC2SPacket;
+import contractsfabricated.network.util.AbstractPacketManager;
 import net.minecraft.util.Identifier;
 
 public class CPacketManager extends AbstractPacketManager {

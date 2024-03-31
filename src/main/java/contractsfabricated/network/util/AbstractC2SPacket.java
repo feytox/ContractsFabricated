@@ -1,4 +1,4 @@
-package contractsfabricated.util.network.util;
+package contractsfabricated.network.util;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;

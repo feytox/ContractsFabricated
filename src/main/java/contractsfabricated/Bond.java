@@ -54,12 +54,12 @@ public class Bond {
         PlayerEntity victim = match.right();
         if (victim == null) return;
 
-        spawnParticles(victim);
+        spawnTpParticles(victim);
         playSound(victim, SoundEvents.BLOCK_LAVA_EXTINGUISH);
 
         DelayedTask.schedule(() -> {
             teleport(victim, player);
-            spawnParticles(victim);
+            spawnTpParticles(victim);
             playSound(victim, SoundEvents.BLOCK_LAVA_EXTINGUISH);
             victim.removeStatusEffect(StatusEffects.JUMP_BOOST);
             victim.removeStatusEffect(StatusEffects.SLOWNESS);
@@ -77,12 +77,12 @@ public class Bond {
         PlayerEntity victim = match.right();
         if (victim == null) return;
 
-        spawnParticles(player);
+        spawnTpParticles(player);
         playSound(player, SoundEvents.BLOCK_LAVA_EXTINGUISH);
 
         DelayedTask.schedule(() -> {
             teleport(player, victim);
-            spawnParticles(player);
+            spawnTpParticles(player);
             playSound(player, SoundEvents.BLOCK_LAVA_EXTINGUISH);
         }, 40);
     }
@@ -120,7 +120,7 @@ public class Bond {
         player.teleport(targetWorld, target.getX(), target.getY(), target.getZ(), Set.of(), target.getYaw(), target.getPitch());
     }
 
-    private static void spawnParticles(PlayerEntity target) {
+    public static void spawnTpParticles(PlayerEntity target) {
         if (!(target.getWorld() instanceof ServerWorld world)) return;
 
         Vec3d pos = target.getPos();
@@ -129,7 +129,7 @@ public class Bond {
         world.spawnParticles(ParticleTypes.SCULK_SOUL, pos.x, pos.y, pos.z, 300, 0, 1, 0, 1);
     }
 
-    private static void playSound(PlayerEntity target, SoundEvent soundEvent) {
+    public static void playSound(PlayerEntity target, SoundEvent soundEvent) {
         if (!(target.getWorld() instanceof ServerWorld world)) return;
         world.playSound(null, target.getX(), target.getY(), target.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }

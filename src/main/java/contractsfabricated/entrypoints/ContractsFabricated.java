@@ -2,9 +2,10 @@ package contractsfabricated.entrypoints;
 
 import contractsfabricated.commands.MoriartyCommand;
 import contractsfabricated.config.ContractsConfig;
+import contractsfabricated.item.CItemGroup;
 import contractsfabricated.item.CItems;
+import contractsfabricated.network.FeyNetworkUtil;
 import contractsfabricated.util.DelayedTask;
-import contractsfabricated.util.network.FeyNetworkUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ public class ContractsFabricated implements ModInitializer {
 		CItems.registerAll();
 		FeyNetworkUtil.registerPackets();
 		MoriartyCommand.register();
+		CItemGroup.registerAll();
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> DelayedTask.tickTasks());
 

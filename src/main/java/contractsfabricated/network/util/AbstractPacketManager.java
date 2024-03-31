@@ -1,4 +1,4 @@
-package contractsfabricated.util.network.util;
+package contractsfabricated.network.util;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.Identifier;

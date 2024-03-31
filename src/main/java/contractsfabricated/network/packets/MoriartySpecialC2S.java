@@ -1,9 +1,9 @@
-package contractsfabricated.util.network.packets;
+package contractsfabricated.network.packets;
 
 import contractsfabricated.item.CaneItem;
+import contractsfabricated.network.util.AbstractC2SPacket;
+import contractsfabricated.network.util.C2SPacketInfo;
 import contractsfabricated.util.CIdentifier;
-import contractsfabricated.util.network.util.AbstractC2SPacket;
-import contractsfabricated.util.network.util.C2SPacketInfo;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;

@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import contractsfabricated.Bond;
 import contractsfabricated.Deal;
+import contractsfabricated.item.CaneItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -36,6 +37,7 @@ public class PlayerEntityMixin {
         PlayerEntity player = ((PlayerEntity)(Object) this);
         Deal.markUnlucky(player);
         Bond.tickLuck(player);
+        CaneItem.tickInvisibility(player);
     }
 
     @ModifyReturnValue(method = "isInvulnerableTo", at = @At("RETURN"))

@@ -66,9 +66,9 @@ public class Deal {
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.LUCK, -1, 0, false, false, true));
 
         PlayerEntity moriarty = ContractsUtil.getMoriarty(world);
-        if (moriarty == null) return;
+        if (moriarty == null || !(moriarty.getWorld() instanceof ServerWorld moriartyWorld)) return;
         Vec3d moriartyPos = moriarty.getPos();
-        ItemScatterer.spawn(world, moriartyPos.x, moriartyPos.y+20, moriartyPos.z, bookStack);
+        ItemScatterer.spawn(moriartyWorld, moriartyPos.x, moriartyPos.y, moriartyPos.z, bookStack);
     }
 
     public static boolean unbindDeal(PlayerEntity player, ItemStack dealStack) {

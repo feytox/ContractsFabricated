@@ -1,4 +1,4 @@
-package contractsfabricated.util.network.util;
+package contractsfabricated.network.util;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;

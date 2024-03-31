@@ -1,5 +1,6 @@
 package contractsfabricated.commands;
 
+import contractsfabricated.Bond;
 import contractsfabricated.util.ContractsUtil;
 import lombok.val;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -8,6 +9,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -49,6 +51,8 @@ public class MoriartyCommand {
                                 Vec3d pos = CONFIG.markedPos();
 
                                 player.teleport(targetWorld, pos.x, pos.y, pos.z, player.getYaw(), player.getPitch());
+                                Bond.spawnTpParticles(player);
+                                Bond.playSound(player, SoundEvents.BLOCK_LAVA_EXTINGUISH);
 
                                 return 1;
                             }))));

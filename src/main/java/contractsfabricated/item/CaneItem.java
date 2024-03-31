@@ -31,7 +31,7 @@ import static contractsfabricated.entrypoints.ContractsFabricated.CONFIG;
 public class CaneItem extends SwordItem {
 
     private CaneItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed) {
-        super(toolMaterial, attackDamage, attackSpeed, new FabricItemSettings().maxCount(1));
+        super(toolMaterial, attackDamage, attackSpeed, new FabricItemSettings().maxCount(1).maxDamage(-1));
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CaneItem extends SwordItem {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
         if (world.isClient || !(entity instanceof LivingEntity livingEntity)) return;
-        if (world.getTime() % 5 != 0) return;
+        if (world.getTime() % 40 != 0) return;
         if (!ContractsUtil.isMoriarty(entity)) return;
 
         if (entity instanceof BattleModeProdiver provider) {
@@ -101,7 +101,7 @@ public class CaneItem extends SwordItem {
             return;
         }
 
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30*20, 4));
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30*20, 4, false, false));
         CONFIG.points(0);
 
         Vec3d pos = player.getPos();
@@ -112,6 +112,37 @@ public class CaneItem extends SwordItem {
         world.spawnParticles(ParticleTypes.SCULK_SOUL, pos.x, pos.y, pos.z, 900, 0, 1, 0, 1);
         world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.PLAYERS, 1.0f, 1.0f);
         world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.PLAYERS, 1.0f, 1.0f);
+    }
+
+    public static void toggleInvisibility(ServerPlayerEntity player) {
+        if (!ContractsUtil.isMoriarty(player) || !ContractsUtil.hasDeals()) return;
+        if (!CaneItem.isUsing(player)) return;
+
+        val effect = player.getStatusEffect(StatusEffects.INVISIBILITY);
+        if (effect != null) {
+            player.removeStatusEffect(StatusEffects.INVISIBILITY);
+            player.removeStatusEffect(StatusEffects.SPEED);
+            player.removeStatusEffect(StatusEffects.HASTE);
+            return;
+        }
+
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1, 0, false, false, true));
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, -1, 4, false, false, true));
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, -1, 2, false, false, true));
+    }
+
+    public static void tickInvisibility(PlayerEntity player) {
+        if (!ContractsUtil.isMoriarty(player)) return;
+        if (!(player.getWorld() instanceof ServerWorld world)) return;
+        if (player.getStatusEffect(StatusEffects.INVISIBILITY) == null) return;
+
+        if (player.isOnFire()) {
+            player.extinguish();
+            player.setOnFire(false);
+        }
+
+        Vec3d pos = player.getPos();
+        world.spawnParticles(ParticleTypes.SOUL, pos.x, pos.y, pos.z, 15, 0.5, 0, 0.5, 0);
     }
 
     public static class CaneStaff extends CaneItem {

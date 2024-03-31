@@ -1,7 +1,7 @@
 package contractsfabricated.util;
 
 import contractsfabricated.entrypoints.ContractsFabricated;
-import contractsfabricated.util.network.packets.*;
+import contractsfabricated.network.packets.*;
 import lombok.val;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;

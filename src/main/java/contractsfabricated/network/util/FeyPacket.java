@@ -1,4 +1,4 @@
-package contractsfabricated.util.network.util;
+package contractsfabricated.network.util;
 
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;

@@ -1,8 +1,8 @@
-package contractsfabricated.util.network;
+package contractsfabricated.network;
 
 import com.google.common.collect.ImmutableMap;
-import contractsfabricated.util.network.packets.CPacketManager;
-import contractsfabricated.util.network.util.*;
+import contractsfabricated.network.packets.CPacketManager;
+import contractsfabricated.network.util.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
